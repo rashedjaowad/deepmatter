@@ -30,7 +30,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <span className="text-xl font-semibold text-gray-900">AI Solutions</span>
+            <span className="text-xl font-semibold text-gray-900">Deepmatter Intelligence</span>
           </div>
 
           <div className="hidden md:block">
@@ -41,12 +41,12 @@ export function Navigation() {
               >
                 Our Work
               </button>
-              <button
-                onClick={() => scrollToSection("stories")}
+              <a
+                href="/success-stories"
                 className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Success Stories
-              </button>
+              </a>
               <Button onClick={() => scrollToSection("demo")} className="bg-gray-900 hover:bg-gray-800 text-white">
                 Book Demo
               </Button>
@@ -69,12 +69,12 @@ export function Navigation() {
               >
                 Our Work
               </button>
-              <button
-                onClick={() => scrollToSection("stories")}
+              <a
+                href="/success-stories"
                 className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900"
               >
                 Success Stories
-              </button>
+              </a>
               <Button
                 onClick={() => scrollToSection("demo")}
                 className="w-full mt-2 bg-gray-900 hover:bg-gray-800 text-white"

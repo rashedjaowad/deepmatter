@@ -2,6 +2,8 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Star } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 const testimonials = [
   {
@@ -94,6 +96,16 @@ export function SuccessStoriesSection() {
               <div className="text-3xl font-bold text-gray-900">2M+</div>
               <div className="text-sm">Hours Automated</div>
             </div>
+          </div>
+          <div className="mt-8">
+            <Button
+              size="lg"
+              onClick={() => (window.location.href = "/success-stories")}
+              className="bg-gray-900 hover:bg-gray-800 text-white"
+            >
+              View All Success Stories
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </div>

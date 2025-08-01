@@ -61,9 +61,6 @@ export function CompaniesSection() {
           <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">Trusted by Industry Leaders</p>
           <div className="flex justify-center items-center gap-4 mb-8">
             <h3 className="text-2xl font-light text-gray-900">Companies We&apos;ve Worked With</h3>
-            <Button variant="outline" size="sm" onClick={() => setIsEditing(!isEditing)} className="ml-4">
-              {isEditing ? "Done" : "Edit"}
-            </Button>
           </div>
         </div>
 
@@ -92,53 +89,55 @@ export function CompaniesSection() {
           </Card>
         )}
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-          {companies.map((company) => (
-            <div key={company.id} className="relative group">
-              <div className="flex flex-col items-center justify-center p-6 h-24 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                {company.logo ? (
-                  <img
-                    src={company.logo || "/placeholder.svg"}
-                    alt={`${company.name} logo`}
-                    className="max-h-12 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center text-gray-400">
-                    <Building2 className="w-8 h-8 mb-1" />
-                    <span className="text-xs text-center font-medium text-gray-600">{company.name}</span>
+        <div className="overflow-hidden">
+          <div className="flex animate-scroll gap-8 items-center">
+            {[...companies, ...companies].map((company, index) => (
+              <div key={`${company.id}-${index}`} className="relative group flex-shrink-0">
+                <div className="flex flex-col items-center justify-center p-6 h-24 w-32 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  {company.logo ? (
+                    <img
+                      src={company.logo || "/placeholder.svg"}
+                      alt={`${company.name} logo`}
+                      className="max-h-12 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center text-gray-400">
+                      <Building2 className="w-8 h-8 mb-1" />
+                      <span className="text-xs text-center font-medium text-gray-600">{company.name}</span>
+                    </div>
+                  )}
+                </div>
+
+                {isEditing && index < companies.length && (
+                  <div className="absolute -top-2 -right-2 flex gap-1">
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleLogoUpload(company.id, e)}
+                        className="hidden"
+                      />
+                      <div className="w-6 h-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center text-xs">
+                        <Upload className="w-3 h-3" />
+                      </div>
+                    </label>
+                    <button
+                      onClick={() => removeCompany(company.id)}
+                      className="w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+
+                {!company.logo && !isEditing && (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded shadow-sm">{company.name}</span>
                   </div>
                 )}
               </div>
-
-              {isEditing && (
-                <div className="absolute -top-2 -right-2 flex gap-1">
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleLogoUpload(company.id, e)}
-                      className="hidden"
-                    />
-                    <div className="w-6 h-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center text-xs">
-                      <Upload className="w-3 h-3" />
-                    </div>
-                  </label>
-                  <button
-                    onClick={() => removeCompany(company.id)}
-                    className="w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-              )}
-
-              {!company.logo && !isEditing && (
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded shadow-sm">{company.name}</span>
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {isEditing && (
